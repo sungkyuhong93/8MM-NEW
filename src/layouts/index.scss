@@ -1,0 +1,285 @@
+//styleguide
+$light-grey: #f2f2f2;
+$medium-grey: #ebebeb;
+$dark-grey: #b0b0b0;
+$black: #000;
+$white: #fff;
+
+@mixin tabWidth {
+  @media (max-width: 900px) {
+    @content;
+  }
+}
+
+@mixin mobWidth {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+
+html {
+  padding-bottom: 0px !important;
+}
+
+ul,
+ol,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-upper {
+  text-transform: uppercase;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+.h1 {
+  font-size: 3.2rem;
+  letter-spacing: 3px;
+  line-height: 4.8rem;
+
+  @include mobWidth {
+    font-size: 2.4rem;
+    letter-spacing: 2.61px;
+    line-height: 3.8rem;
+  }
+}
+
+h1 {
+  font-size: 4.8rem;
+  letter-spacing: 5px;
+  /*   text-align: center; */
+  line-height: 5.6rem;
+
+  @include mobWidth {
+    font-size: 3.2rem;
+    letter-spacing: 3.48px;
+    line-height: 48px;
+  }
+}
+
+h2 {
+  font-size: 3.2rem;
+  letter-spacing: 3px;
+  line-height: 4.8rem;
+
+  @include mobWidth {
+    font-size: 2.4rem;
+    letter-spacing: 2.61px;
+    line-height: 3.8rem;
+  }
+}
+
+h2 .small {
+  font-size: 2.8rem;
+  letter-spacing: 3.5px;
+  line-height: 3.6rem;
+
+  @include mobWidth {
+    font-size: 2rem;
+    letter-spacing: 2.17px;
+    line-height: 3rem;
+  }
+}
+
+h3 {
+  font-size: 3.2rem;
+  letter-spacing: 0;
+  line-height: 4.4rem;
+
+  @include mobWidth {
+    font-size: 2.4rem;
+    letter-spacing: 0;
+    line-height: 3.4rem;
+  }
+}
+
+.h3 {
+  font-size: 3.2rem;
+  letter-spacing: 0;
+  line-height: 4.4rem;
+
+  @include mobWidth {
+    font-size: 2.4rem;
+    letter-spacing: 0;
+    line-height: 3.4rem;
+  }
+}
+
+h4 {
+  font-size: 2rem;
+  letter-spacing: 3px;
+  line-height: 3rem;
+  font-weight: normal;
+
+  @include mobWidth {
+    font-size: 1.6rem;
+    letter-spacing: 2.4px;
+    line-height: 3rem;
+    font-weight: normal;
+  }
+}
+
+.sk-h4 {
+  font-size: 2rem;
+  letter-spacing: 3px;
+  line-height: 3rem;
+  font-weight: normal;
+  color: #000;
+  font-family: apercu;
+  text-transform: uppercase;
+
+  @include mobWidth {
+    font-size: 1.6rem;
+    letter-spacing: 2.4px;
+    line-height: 3rem;
+    font-weight: normal;
+  }
+}
+
+h5 {
+  font-size: 14px;
+  letter-spacing: 2.33px;
+  line-height: 2.2rem;
+
+  @include mobWidth {
+    font-size: 12px;
+    letter-spacing: 1.71px;
+    text-align: center;
+    line-height: 20px;
+  }
+}
+
+.h5 {
+  font-size: 14px;
+  letter-spacing: 2.33px;
+  line-height: 2.2rem;
+
+  @include mobWidth {
+    font-size: 12px;
+    letter-spacing: 1.71px;
+    text-align: center;
+    line-height: 20px;
+  }
+}
+
+p {
+  font-size: 1.6rem;
+}
+
+.small {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+//BURGER
+.burger {
+  cursor: pointer;
+}
+
+.nav {
+  position: relative;
+}
+
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-menu {
+  height: 100vh;
+  width: 400px;
+  background-color: #fff;
+  transition: all 0.4s ease-in-out;
+  position: fixed;
+  z-index: 100;
+  right: 0;
+  border-top: 1px solid #888888;
+  border-left: 1px solid #888888;
+  border-bottom: 1px solid #888888;
+  padding-left: 80px;
+  padding-top: 184px;
+
+  & ul {
+    list-style: none;
+
+    & li {
+      margin-top: 1rem;
+    }
+  }
+}
+
+.nav-menu-show {
+  transform: translate(0);
+  position: absolute;
+  right: 0;
+}
+
+.nav-menu-none {
+  transform: translate(584px);
+}
+
+.product-item-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+}
+
+.product-item {
+  // max-width: 300px;
+  width: 25%;
+
+  @media (max-width: 1023px) {
+    width: 33%;
+  }
+
+  @media (max-width: 768px) {
+    width: 50%;
+  }
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
+
+  &-img img {
+    width: 100%;
+    height: 100%;
+  }
+
+  &-title {
+    display: inline-block;
+    max-width: 375px;
+  }
+}
+
+// .product-item:nth-child(3n) {
+
+//   }
+
+//Collection templates
+.collection-bg {
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-transform: uppercase;
+}

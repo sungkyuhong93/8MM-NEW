@@ -2,44 +2,32 @@ import React, { useContext } from 'react'
 import { useStaticQuery, graphql, Link } from 'gatsby'
 
 import StoreContext from '~/context/StoreContext'
-import {
-  Grid,
-  Product,
-  Title,
-  PriceTag
-} from './styles'
-import { Img } from '~/utils/styles'
+import { Grid, Product, Title, PriceTag } from './styles'
 
 const ProductGrid = () => {
-  const { store: {checkout} } = useContext(StoreContext)
-  const { allShopifyProduct } = useStaticQuery(
+  const {
+    store: { checkout },
+  } = useContext(StoreContext)
+  const data = useStaticQuery(
     graphql`
       query {
-        allShopifyProduct(
-          sort: {
-            fields: [createdAt]
-            order: DESC
-          }
-        ) {
-          edges {
-            node {
+        shopifyCollection(handle: { eq: "frontpage" }) {
+          products {
+            id
+            handle
+            title
+            variants {
+              price
+            }
+            images {
               id
-              title
-              handle
-              createdAt
-              images {
-                id
-                originalSrc
-                localFile {
-                  childImageSharp {
-                    fluid(maxWidth: 910) {
-                      ...GatsbyImageSharpFluid_withWebp_tracedSVG
-                    }
+              originalSrc
+              localFile {
+                childImageSharp {
+                  fluid(maxWidth: 910) {
+                    ...GatsbyImageSharpFluid_withWebp_tracedSVG
                   }
                 }
-              }
-              variants {
-                price
               }
             }
           }
@@ -48,30 +36,34 @@ const ProductGrid = () => {
     `
   )
 
-  const getPrice = price => Intl.NumberFormat(undefined, {
-    currency: checkout.currencyCode ? checkout.currencyCode : 'EUR',
-    minimumFractionDigits: 2,
-    style: 'currency',
-  }).format(parseFloat(price ? price : 0))
+  const getPrice = price =>
+    Intl.NumberFormat(undefined, {
+      currency: checkout.currencyCode ? checkout.currencyCode : 'EUR',
+      minimumFractionDigits: 2,
+      style: 'currency',
+    }).format(parseFloat(price ? price : 0))
 
   return (
-    <Grid>
-      {allShopifyProduct.edges
-        ? allShopifyProduct.edges.map(({ node: { id, handle, title, images: [firstImage], variants: [firstVariant] } }) => (
-          <Product key={id} >
-            <Link to={`/product/${handle}/`}>
-              {firstImage && firstImage.localFile &&
-                (<Img
-                  fluid={firstImage.localFile.childImageSharp.fluid}
-                  alt={handle}
-                />)}
+    <div className="product-item-grid">
+      {data.shopifyCollection.products.map(product => {
+        return (
+          <div className="product-item text-center text-upper">
+            <Link to={`/product/${product.handle}/`}>
+              <div className="product-item-img">
+                <img src={product.images[0].originalSrc} alt={product.handle} />
+              </div>
             </Link>
-            <Title>{title}</Title>
-            <PriceTag>{getPrice(firstVariant.price)}</PriceTag>
-          </Product>
-        ))
-        : <p>No Products found!</p>}
-    </Grid>
+            <Link
+              className="h5 product-item-title"
+              to={`/product/${product.handle}/`}
+            >
+              {product.title}
+            </Link>
+            <p className="small">${product.variants[0].price}</p>
+          </div>
+        )
+      })}
+    </div>
   )
 }
 

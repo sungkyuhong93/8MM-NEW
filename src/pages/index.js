@@ -1,17 +1,35 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { Link, graphql } from 'gatsby'
+import BackgroundImage from 'gatsby-background-image'
 
 import SEO from '~/components/seo'
 import ProductGrid from '~/components/ProductGrid'
 
-const IndexPage = () => (
-  <>
-    <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Shop powered by Gatsby and Shopify.</p>
-    <ProductGrid />
-    <Link to="/page-2/">Go to page 2</Link>
-  </>
-)
+const IndexPage = ({ data }) => {
+  const homeHeroImage = data.contentfulHomeHero.homeHero.fluid
+  return (
+    <div className="index-wrap">
+      <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+      <BackgroundImage className="collection-bg" fluid={homeHeroImage}>
+        <h1>{homeHeroImage.heroHandle}</h1>
+      </BackgroundImage>
+      <ProductGrid />
+    </div>
+  )
+}
+
+
+export const query = graphql`
+{
+  contentfulHomeHero(heroHandle: {eq: "8mm Banner"}) {
+    heroHandle
+    homeHero {
+      fluid {
+        src
+      }
+    }
+  }
+}
+`
 
 export default IndexPage
