@@ -15,9 +15,21 @@ const ContextProvider = ({ children }) => {
     checkout: { lineItems: [] },
     products: [],
     shop: {},
+    cartOpen: false,
+    setCartOpen: () => {},
   }
 
   const [store, updateStore] = useState(initialStoreState)
+
+  const [cartOpen, setCartOpen] = useState(false)
+
+  const handleCart = () => {
+    setCartOpen(!cartOpen)
+  }
+
+  const closeCart = () => {
+    setCartOpen(false)
+  }
 
   useEffect(() => {
     const initializeCheckout = async () => {
@@ -64,6 +76,9 @@ const ContextProvider = ({ children }) => {
     <Context.Provider
       value={{
         store,
+        cartOpen,
+        closeCart,
+        handleCart,
         addVariantToCart: (variantId, quantity) => {
           if (variantId === '' || !quantity) {
             console.error('Both a size and quantity are required.')

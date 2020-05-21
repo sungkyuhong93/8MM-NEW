@@ -4,6 +4,9 @@ import reduce from 'lodash/reduce'
 import PropTypes from 'prop-types'
 import HamburgerMenu from 'react-hamburger-menu'
 import StoreContext from '~/context/StoreContext'
+import { CartDrawer } from '../Cart/CartDrawer'
+
+import CartIcon from './black-cart.svg'
 
 const useQuantity = () => {
   const {
@@ -17,6 +20,8 @@ const useQuantity = () => {
 const Navigation = () => {
   const [hasItems, quantity] = useQuantity()
   const [open, setOpen] = useState(false)
+
+  const { cartOpen, handleCart } = useContext(StoreContext)
 
   const node = useRef()
 
@@ -56,18 +61,23 @@ const Navigation = () => {
             8MM
           </Link>
         </div>
-        <HamburgerMenu
-          isOpen={open}
-          menuClicked={handleClick}
-          width={18}
-          height={15}
-          strokeWidth={1}
-          rotate={0}
-          color="black"
-          borderRadius={0}
-          animationDuration={0.5}
-          className="burger"
-        />
+        <div className="cart-burger-flex">
+          <HamburgerMenu
+            isOpen={open}
+            menuClicked={handleClick}
+            width={18}
+            height={15}
+            strokeWidth={1}
+            rotate={0}
+            color="black"
+            borderRadius={0}
+            animationDuration={0.5}
+            className="burger"
+          />
+          <a onClick={handleCart} className="cart-link">
+            <img src={CartIcon} />
+          </a>
+        </div>
       </div>
       <div className={`nav-menu ${open ? 'nav-menu-show' : 'nav-menu-none'}`}>
         <div className="nav-menu-inner">
@@ -84,6 +94,8 @@ const Navigation = () => {
           </ul>
         </div>
       </div>
+
+      <CartDrawer />
     </div>
   )
 }

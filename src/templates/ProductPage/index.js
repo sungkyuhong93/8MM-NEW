@@ -3,13 +3,7 @@ import { graphql } from 'gatsby'
 
 import SEO from '~/components/seo'
 import ProductForm from '~/components/ProductForm'
-import {
-  Img,
-  Container,
-  TwoColumnGrid,
-  GridLeft,
-  GridRight,
-} from '~/utils/styles'
+
 import { ProductTitle, ProductDescription } from './styles'
 
 const ProductPage = ({ data }) => {
@@ -17,26 +11,27 @@ const ProductPage = ({ data }) => {
   return (
     <>
       <SEO title={product.title} description={product.description} />
-      <Container>
-        <TwoColumnGrid>
-          <GridLeft>
-            {product.images.map(image => (
-              <Img
-                fluid={image.localFile.childImageSharp.fluid}
-                key={image.id}
-                alt={product.title}
-              />
-            ))}
-          </GridLeft>
-          <GridRight>
-            <ProductTitle>{product.title}</ProductTitle>
-            <ProductDescription
-              dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+      <div className="pdp">
+        <div className="pdp-half">
+          {product.images.map(image => (
+            <img
+              className="pdp-half-img"
+              src={image.originalSrc}
+              key={image.id}
+              alt={product.title}
             />
-            <ProductForm product={product} />
-          </GridRight>
-        </TwoColumnGrid>
-      </Container>
+          ))}
+        </div>
+        <div className="pdp-quarter">
+          <h4 className="pdp-title">{product.title}</h4>
+          <p className="pdp-price">${product.variants[0].price}</p>
+          <ProductDescription
+            dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+          />
+
+          <ProductForm product={product} />
+        </div>
+      </div>
     </>
   )
 }

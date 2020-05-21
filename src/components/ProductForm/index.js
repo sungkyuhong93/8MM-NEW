@@ -14,8 +14,10 @@ const ProductForm = ({ product }) => {
   } = product
   const [variant, setVariant] = useState({ ...initialVariant })
   const [quantity, setQuantity] = useState(1)
+  const [radioValue, setRadioValue] = useState()
   const {
     addVariantToCart,
+    handleCart,
     store: { client, adding },
   } = useContext(StoreContext)
 
@@ -64,6 +66,7 @@ const ProductForm = ({ product }) => {
 
   const handleAddToCart = () => {
     addVariantToCart(productVariant.shopifyId, quantity)
+    handleCart()
   }
 
   /* 
@@ -97,11 +100,9 @@ const ProductForm = ({ product }) => {
 
   return (
     <>
-      <h3>{price}</h3>
       {options.map(({ id, name, values }, index) => (
         <React.Fragment key={id}>
-          <label htmlFor={name}>{name} </label>
-          <select
+          {/*<select
             name={name}
             key={id}
             onChange={event => handleOptionChange(index, event)}
@@ -115,11 +116,28 @@ const ProductForm = ({ product }) => {
                 {value}
               </option>
             ))}
-          </select>
+            </select>*/}
+          <div className="radio-toolbar">
+            {values.map(value => {
+              return (
+                <div className="size-wrap">
+                  <input
+                    id={value}
+                    name={name}
+                    type="radio"
+                    key={`${name}-${value}`}
+                    value={value}
+                    onChange={event => handleOptionChange(index, event)}
+                  />
+                  <label for={value}>{value}</label>
+                </div>
+              )
+            })}
+          </div>
           <br />
         </React.Fragment>
       ))}
-      <label htmlFor="quantity">Quantity </label>
+      {/*<label htmlFor="quantity">Quantity </label>
       <input
         type="number"
         id="quantity"
@@ -129,11 +147,12 @@ const ProductForm = ({ product }) => {
         onChange={handleQuantityChange}
         value={quantity}
       />
-      <br />
+          <br />*/}
       <button
         type="submit"
         disabled={!available || adding}
         onClick={handleAddToCart}
+        className="atc-button"
       >
         Add to Cart
       </button>
