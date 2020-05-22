@@ -7,6 +7,7 @@ import StoreContext from '~/context/StoreContext'
 import { CartDrawer } from '../Cart/CartDrawer'
 
 import CartIcon from './black-cart.svg'
+import Logo from './new-logo.png'
 
 const useQuantity = () => {
   const {
@@ -57,8 +58,8 @@ const Navigation = () => {
     <div className="nav" ref={node}>
       <div className="nav-inner">
         <div className="nav-logo">
-          <Link className="h3" to="/">
-            8MM
+          <Link className="h3 nav-logo" to="/">
+            <img src={Logo} alt="logo" />
           </Link>
         </div>
         <div className="cart-burger-flex">

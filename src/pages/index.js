@@ -18,18 +18,17 @@ const IndexPage = ({ data }) => {
   )
 }
 
-
 export const query = graphql`
-{
-  contentfulHomeHero(heroHandle: {eq: "8mm Banner"}) {
-    heroHandle
-    homeHero {
-      fluid {
-        src
+  {
+    contentfulHomeHero(heroHandle: { eq: "8mm Banner" }) {
+      heroHandle
+      homeHero {
+        fluid {
+          ...GatsbyContentfulFluid_tracedSVG
+        }
       }
     }
   }
-}
 `
 
 export default IndexPage

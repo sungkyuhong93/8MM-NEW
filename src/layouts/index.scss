@@ -198,6 +198,15 @@ p {
   position: relative;
 }
 
+.nav-logo {
+  width: 7rem;
+
+  &-img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 .nav-inner {
   display: flex;
   justify-content: space-between;
@@ -481,4 +490,12 @@ p {
   padding: 20px 0;
   display: flex;
   justify-content: space-between;
+}
+
+.line-through {
+  text-decoration: line-through;
+}
+
+.atc-sold-out {
+  opacity: 0.3;
 }

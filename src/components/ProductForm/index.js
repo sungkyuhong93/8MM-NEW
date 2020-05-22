@@ -102,21 +102,6 @@ const ProductForm = ({ product }) => {
     <>
       {options.map(({ id, name, values }, index) => (
         <React.Fragment key={id}>
-          {/*<select
-            name={name}
-            key={id}
-            onChange={event => handleOptionChange(index, event)}
-          >
-            {values.map(value => (
-              <option
-                value={value}
-                key={`${name}-${value}`}
-                disabled={checkDisabled(name, value)}
-              >
-                {value}
-              </option>
-            ))}
-            </select>*/}
           <div className="radio-toolbar">
             {values.map(value => {
               return (
@@ -129,7 +114,9 @@ const ProductForm = ({ product }) => {
                     value={value}
                     onChange={event => handleOptionChange(index, event)}
                   />
-                  <label for={value}>{value}</label>
+                  <label className="{`line-through`}" for={value}>
+                    {value}
+                  </label>
                 </div>
               )
             })}
@@ -137,26 +124,17 @@ const ProductForm = ({ product }) => {
           <br />
         </React.Fragment>
       ))}
-      {/*<label htmlFor="quantity">Quantity </label>
-      <input
-        type="number"
-        id="quantity"
-        name="quantity"
-        min="1"
-        step="1"
-        onChange={handleQuantityChange}
-        value={quantity}
-      />
-          <br />*/}
+
+      {!available && <p>This Product is out of Stock!</p>}
+
       <button
         type="submit"
         disabled={!available || adding}
         onClick={handleAddToCart}
-        className="atc-button"
+        className={`atc-button ${!available ? 'atc-sold-out' : ''}`}
       >
-        Add to Cart
+        {!available ? 'Sold Out' : 'Add to cart'}
       </button>
-      {!available && <p>This Product is out of Stock!</p>}
     </>
   )
 }
