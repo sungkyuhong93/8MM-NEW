@@ -1,14 +1,13 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import { Img } from '~/utils/styles'
-import BackgroundImage from 'gatsby-background-image'
 
 const CollectionTemplate = ({ data }) => {
   const collection = data.shopifyCollection
-  const collectionImage = data.collectionImage.collectionImage.fluid
+
   return (
     <div className="collection">
-      <div className="collection-bg">
+      <div className="collection-header">
         <h1>{collection.handle}</h1>
       </div>
       <div className="product-item-grid">
@@ -60,16 +59,6 @@ export const query = graphql`
           }
         }
       }
-    }
-    collectionImage: contentfulCollectionImage(
-      collectionHandle: { eq: $handle }
-    ) {
-      collectionImage {
-        fluid {
-          src
-        }
-      }
-      collectionHandle
     }
   }
 `

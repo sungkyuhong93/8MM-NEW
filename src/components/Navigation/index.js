@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef, useEffect } from 'react'
-import { Link } from 'gatsby'
+import { Link, useStaticQuery } from 'gatsby'
 import reduce from 'lodash/reduce'
 import PropTypes from 'prop-types'
 import HamburgerMenu from 'react-hamburger-menu'
@@ -25,6 +25,32 @@ const Navigation = () => {
   const { cartOpen, handleCart } = useContext(StoreContext)
 
   const node = useRef()
+
+  const navProducts = useStaticQuery(
+    graphql`
+      {
+        shopifyCollection(handle: { eq: "frontpage" }) {
+          products {
+            images {
+              id
+              originalSrc
+              localFile {
+                childImageSharp {
+                  fluid(maxWidth: 910) {
+                    ...GatsbyImageSharpFluid_withWebp_tracedSVG
+                  }
+                }
+              }
+            }
+            handle
+            id
+          }
+        }
+      }
+    `
+  )
+
+  console.log(navProducts)
 
   const bodyClick = e => {
     if (node.current.contains(e.target)) {
@@ -57,11 +83,50 @@ const Navigation = () => {
   return (
     <div className="nav" ref={node}>
       <div className="nav-inner">
-        <div className="nav-logo">
-          <Link className="h3 nav-logo" to="/">
-            <img src={Logo} alt="logo" />
-          </Link>
+        <div className="nav-logo-and-items">
+          <div className="nav-logo">
+            <Link className="h3 nav-logo" to="/">
+              <img src={Logo} alt="logo" />
+            </Link>
+          </div>
+
+          <div className="nav-desk">
+            <ul className="nav-desk-items">
+              <li>
+                <Link className="nav-desk-a">About</Link>
+              </li>
+              <li className="nav-desk-shop">
+                <Link className="nav-desk-a">Shop</Link>
+                <div className="nav-desk-shop-sub-wrap">
+                  <ul className="nav-desk-shop-sub">
+                    <li>
+                      <Link to="/collection/frontpage">Featured</Link>
+                    </li>
+                    <li>
+                      <Link to="/collection/sweatshirts">Sweatshirts</Link>
+                    </li>
+                    <li>
+                      <Link to="/collection/t-shirts">Tees</Link>
+                    </li>
+                    <li>
+                      <Link to="/collection/bags">Bags</Link>
+                    </li>
+                    <li>
+                      <Link to="/collection/finger-heart-clothes">
+                        Finger Heart Collection
+                      </Link>
+                    </li>
+                  </ul>
+                  <div className="nav-featured-items"></div>
+                </div>
+              </li>
+              <li>
+                <Link className="nav-desk-a">Lookbook</Link>
+              </li>
+            </ul>
+          </div>
         </div>
+
         <div className="cart-burger-flex">
           <HamburgerMenu
             isOpen={open}
@@ -73,14 +138,19 @@ const Navigation = () => {
             color="black"
             borderRadius={0}
             animationDuration={0.5}
-            className="burger"
+            className="burger nav-mob"
           />
+          <a className="nav-desk nav-desk-a">Accounts</a>
           <a onClick={handleCart} className="cart-link">
             <img src={CartIcon} />
           </a>
         </div>
       </div>
-      <div className={`nav-menu ${open ? 'nav-menu-show' : 'nav-menu-none'}`}>
+      <div
+        className={`nav-mob nav-menu ${
+          open ? 'nav-menu-show' : 'nav-menu-none'
+        }`}
+      >
         <div className="nav-menu-inner">
           <ul>
             <li className="sk-h4">

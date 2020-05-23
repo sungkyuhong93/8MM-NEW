@@ -1,13 +1,13 @@
 const path = require('path')
 
 require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`
+  path: `.env.${process.env.NODE_ENV}`,
 })
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Shopify Starter`,
-    description: `Kick off your next, ecommerce experience with this Gatsby starter. This starter ships with credentials to a shopify demo store so you can try it out immediately.`,
+    title: `The 8MM`,
+    description: `The 8MM Shop`,
     author: `@alexanderhorl`,
   },
   plugins: [
@@ -18,7 +18,7 @@ module.exports = {
         spaceId: process.env.CONTENTFUL_SPACE_ID,
         // Learn about environment variables: https://gatsby.dev/env-vars
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-      }
+      },
     },
     {
       resolve: `gatsby-source-shopify`,
@@ -27,7 +27,7 @@ module.exports = {
         shopName: `eightmarksman`,
         // The storefront access token
         accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
-        apiVersion: "2020-01"
+        apiVersion: '2020-01',
       },
     },
     `gatsby-plugin-react-helmet`,
@@ -50,7 +50,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/components/Navigation/new-logo.png`, // This path is relative to the root of the site.
       },
     },
     {
@@ -85,7 +85,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: "UA-134421805-1",
+        trackingId: 'UA-134421805-1',
         anonymize: true,
         respectDNT: true,
       },

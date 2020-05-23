@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
-import "./index.scss"
+import './index.scss'
 
 import ContextProvider from '~/provider/ContextProvider'
 import Navigation from '~/components/Navigation'
@@ -22,9 +22,7 @@ const Layout = ({ children }) => {
         render={data => (
           <>
             <Navigation siteTitle={data.site.siteMetadata.title} />
-            <div className="site-content">
-              {children}
-            </div>
+            <div className="site-content">{children}</div>
           </>
         )}
       />
